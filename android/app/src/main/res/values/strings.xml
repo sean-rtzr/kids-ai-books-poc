@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">kids ai books</string>
+    <string name="title_activity_main">kids ai books</string>
+    <string name="package_name">com.kidsaibookspoc.app</string>
+    <string name="custom_url_scheme">com.kidsaibookspoc.app</string>
+</resources>
