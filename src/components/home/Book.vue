@@ -3,16 +3,17 @@
 import {ref} from "vue";
 import {Swiper, SwiperSlide} from 'swiper/vue';
 import 'swiper/scss';
-import 'swiper/scss/navigation';
-import 'swiper/scss/pagination';
 
 // variables
 
 // refs
 const name = ref('');
 const story = ref('');
+const emits = defineEmits(['updatePage']);
+
 
 // methods
+
 const onSlideChange = (swiper) => {
   const books = document.querySelectorAll('.book');
   books.forEach((book) => {
@@ -20,6 +21,10 @@ const onSlideChange = (swiper) => {
   });
   books[swiper.activeIndex].setAttribute('data-selected', 'true');
 };
+
+const onEndSlideChange = (swiper) => {
+  emits('updatePage', swiper.activeIndex);
+}
 
 // lifecycle
 </script>
@@ -34,12 +39,14 @@ const onSlideChange = (swiper) => {
           :slidesPerView="'auto'"
           :centeredSlides="true"
           @slideChange="onSlideChange"
+          @slide-change-transition-end="onEndSlideChange"
       >
         <swiper-slide class="book" :class="$style.book" data-selected="true">
 <!--          <v-text-field v-model="name" :class="$style.name" placeholder="이름"></v-text-field>-->
 <!--          <v-text-field v-model="story" :class="$style.story" placeholder="이야기 내용"></v-text-field>-->
         </swiper-slide>
-        <swiper-slide class="book" :class="$style.book"></swiper-slide>
+        <swiper-slide class="book" :class="$style.book">
+        </swiper-slide>
         ...
       </swiper>
     </div>
@@ -51,18 +58,19 @@ const onSlideChange = (swiper) => {
   color: #fff;
 
   .subtitle {
-    font-size: 1.32rem;
+    font-size: 1.4rem;
     font-weight: 900;
+    line-height: 1.2;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
   }
 
   .title {
-    font-size: 1.32rem;
+    font-size: 1.4rem;
     font-weight: 900;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 
     span {
-      font-size: 1.48rem;
+      font-size: 1.58rem;
       font-weight: 700;
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
     }
@@ -70,7 +78,8 @@ const onSlideChange = (swiper) => {
 
   .books {
     width: 100%;
-    height: 340px;
+    height: 380px;
+    padding: 12px;
     margin: 110px auto 0;
 
     .book {
@@ -80,12 +89,12 @@ const onSlideChange = (swiper) => {
       border-radius: 20px;
       background-color: white;
       border: 4px solid #FFD14C;
-      transition: all 0.4s ease-in-out 0.4s;
+      transition: all 0.4s ease-in-out 0.1s;
       padding: 12px;
       margin: 0 24px;
 
       &[data-selected="true"] {
-        transform: scaleX(1.2);
+        transform: scaleX(1.2) translateY(-4px);
         box-shadow: 0 8px 12px rgba(0, 0, 0, 0.25);
       }
 

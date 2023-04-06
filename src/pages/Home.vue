@@ -1,8 +1,8 @@
 <script setup>
 // imports
-import Book from "@/components/home/Book.vue";
-import TopHead from "../components/home/TopHead.vue";
-import GenerativeBtn from "../components/home/GenerativeBtn.vue";
+import Subtitle from "../components/home/Subtitle.vue";
+import Top from "../components/home/Top.vue";
+import BestList from "../components/home/BestList.vue";
 
 // variables
 
@@ -14,16 +14,12 @@ import GenerativeBtn from "../components/home/GenerativeBtn.vue";
 </script>
 
 <template>
-	<div :class="$style.books">
-    <TopHead />
-    <GenerativeBtn />
-		<Book />
+	<div>
+    <Top />
+    <Subtitle />
+    <BestList />
 	</div>
 </template>
 
-<style module lang="scss">
-.books {
-  position: relative;
-  background-color: #01C17B;
-}
+<style lang="scss">
 </style>
