@@ -1,9 +1,8 @@
 <template>
-  <div :class="$style.books">
+  <div :class="page === 0 ? $style.firstPage : $style.secondPage">
     <TopHead />
     <GenerativeBtn :page="page" />
-    <Book @updatePage="updatePage" />
-
+    <Book @updatePage="updatePage"/>
   </div>
 </template>
 
@@ -13,7 +12,6 @@ import TopHead from "./TopHead.vue";
 import GenerativeBtn from "./GenerativeBtn.vue";
 import Book from "./Book.vue";
 import {ref} from "vue";
-import BestList from "./BestList.vue";
 
 let page = ref(0)
 const updatePage = (no) => {
@@ -22,8 +20,14 @@ const updatePage = (no) => {
 </script>
 
 <style module lang="scss">
-.books {
+.firstPage {
   position: relative;
   background-color: #01C17B;
+  transition: background-color 0.5s;
+}
+.secondPage {
+  position: relative;
+  background-color: #019EC1;
+  transition: background-color 0.5s;
 }
 </style>

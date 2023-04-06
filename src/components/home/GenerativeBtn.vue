@@ -13,7 +13,7 @@ defineProps(["page"])
   position: absolute;
   bottom: -28px;
   left: 50%;
-  font-size: 0.92rem;
+  font-size: 0.98rem;
   font-weight: 900;
   letter-spacing: -0.2px;
   transform: translateX(-50%);
