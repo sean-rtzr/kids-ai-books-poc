@@ -6,6 +6,9 @@
 *.ap_
 *.aab
 
+#keystore
+*.keystore
+
 # Files for the ART/Dalvik VM
 *.dex
 
@@ -99,3 +102,6 @@ app/src/main/assets/public
 app/src/main/assets/capacitor.config.json
 app/src/main/assets/capacitor.plugins.json
 app/src/main/res/xml/config.xml
+
+#keystore
+./kidsaibookspoc.keystore

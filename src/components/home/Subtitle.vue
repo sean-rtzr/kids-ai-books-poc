@@ -4,7 +4,7 @@
       <h5 :class="$style.subtitle">BEST 인기작품</h5>
       <v-divider />
     </div>
-    <p :class="$style.description">인기작품을 우리아이 동화책에 바로 적용해보세요!</p>
+    <p :class="$style.description">인기작품을 동화책에 바로 적용해보세요!</p>
   </div>
 </template>
 

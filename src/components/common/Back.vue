@@ -33,7 +33,7 @@ const prevPage = () => {
   box-shadow: 0 4px 12px rgba(0,0,0,.15);
   border: 4px solid white;
   margin: 24px 0 0 24px;
-  z-index: 1;
+  z-index: 3;
 }
 
 </style>

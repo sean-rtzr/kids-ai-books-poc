@@ -24,4 +24,6 @@ dist-ssr
 *.sw?
 
 #capacitorjs
+capacitor.config.ts
 ./android/*
+./android/kidsaibookspoc.keystore

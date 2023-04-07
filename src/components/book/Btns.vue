@@ -1,36 +1,73 @@
 <template>
-  <div :class="$style.wrapper" class="pa-0">
-    <v-btn :class="$style.btn">이야기 시작</v-btn>
-    <v-btn :class="$style.btn">한국어</v-btn>
-    <v-btn :class="$style.btn">공유하기</v-btn>
-    <v-btn :class="$style.btn">삭제하기</v-btn>
+  <div :class="$style.wrapper">
+    <v-btn :class="$style.btn"
+           class="bg-yellow"
+           rounded
+           variant="flat"
+           @click="onViewStory"
+    >
+      <template v-slot:prepend>
+        <v-img :src="icon_play" width="16px"></v-img>
+      </template>
+      <p>이야기 시작</p>
+    </v-btn>
+    <v-btn :class="$style.btn" class="bg-white" rounded variant="flat">
+      <template v-slot:prepend>
+        <v-img :src="icon_lang" width="20px"></v-img>
+      </template>
+      <p>한국어</p>
+    </v-btn>
+    <v-btn :class="$style.btn" class="bg-white" rounded variant="flat">
+      <template v-slot:prepend>
+        <v-img :src="icon_share" width="20px"></v-img>
+      </template>
+      <p>공유하기</p>
+    </v-btn>
+    <v-btn :class="$style.btn" class="bg-white" rounded variant="flat">
+      <template v-slot:prepend>
+        <v-img :src="icon_delete" width="20px"></v-img>
+      </template>
+      <p>삭제하기</p>
+    </v-btn>
   </div>
 </template>
 
 <script setup>
+import {useRouter} from "vue-router";
 
+const icon_play = new URL('@/assets/images/icon_play.png', import.meta.url).href;
+const icon_lang = new URL('@/assets/images/icon_lang.png', import.meta.url).href;
+const icon_share = new URL('@/assets/images/icon_share.png', import.meta.url).href;
+const icon_delete = new URL('@/assets/images/icon_delete.png', import.meta.url).href;
+
+const router = useRouter();
+const onViewStory = () => {
+  window.scrollTo({top: 0, behavior: 'smooth'});
+  setTimeout(() => {
+    router.push('/detail')
+  }, 400)
+
+}
 </script>
 
 <style lang="scss" scoped module>
 .wrapper {
-  margin: 20px auto;
   width: 100%;
-  height: 52px;
-  background-color: #fff;
   display: grid;
-  grid-template-columns: 200px 200px;
-  grid-row: auto auto;
-  grid-column-gap: 10px;
-  grid-row-gap: 10px;
+  grid-template-columns: 47% 47%;
+  grid-row: auto;
+  grid-column-gap: 16px;
+  grid-row-gap: 16px;
+  padding: 16px 24px;
 
   .btn {
-    background-color: #333;
-    padding: 20px;
-    border-radius: 10px;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 100%;
+    height: 52px;
+    font-size: 0.9rem;
+    font-weight: 900;
+    letter-spacing: -0.4px;
+    color: #777;
+    border: 1px solid rgba(0, 0, 0, 0.24);
   }
 }
 
