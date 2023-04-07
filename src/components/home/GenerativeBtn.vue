@@ -1,11 +1,22 @@
 <template>
-  <v-btn width="160px" variant="flat" rounded height="52px" class="text-green-darken-4" color="yellow" :class="$style.btn">
+  <v-btn width="160px"
+         variant="flat"
+         rounded
+         height="52px"
+         class="text-green-darken-4"
+         color="yellow"
+         :class="$style.btn"
+         @click="$emit('openLoad', true)"
+  >
     {{ page === 0 ? '첫 이야기 만들기' : '구독 후 만들기' }}
   </v-btn>
 </template>
 
 <script setup>
+import {ref} from "vue";
 defineProps(["page"])
+
+const isOpen = ref(false)
 </script>
 
 <style lang="scss" scoped module>

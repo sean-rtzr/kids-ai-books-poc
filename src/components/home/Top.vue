@@ -1,7 +1,7 @@
 <template>
   <div :class="page === 0 ? $style.firstPage : $style.secondPage">
     <TopHead />
-    <GenerativeBtn :page="page" />
+    <GenerativeBtn :page="page" @openLoad="openLoad" />
     <Book @updatePage="updatePage"/>
   </div>
 </template>
@@ -13,9 +13,13 @@ import GenerativeBtn from "./GenerativeBtn.vue";
 import Book from "./Book.vue";
 import {ref} from "vue";
 
+const emits = defineEmits(['openLoad'])
 let page = ref(0)
 const updatePage = (no) => {
   page.value = no
+}
+const openLoad = () => {
+  emits('openLoad', true)
 }
 </script>
 
