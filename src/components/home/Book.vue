@@ -46,7 +46,7 @@ const onEndSlideChange = (swiper) => {
         <swiper-slide class="book" :class="$style.book" data-selected="true" >
           <BookNew/>
           <div :class="$style.inputs">
-            <v-btn size="x-small" rounded class="bg-purple-darken-3" :class="$style.ai">
+            <v-btn size="x-small" height="28px" rounded class="bg-purple-darken-3" :class="$style.ai">
               <v-img :src="icon_ai" width="12px" />
               <p class="font-weight-bold pl-1">추천</p>
             </v-btn>
@@ -124,7 +124,7 @@ const onEndSlideChange = (swiper) => {
         .ai {
           position: absolute;
           right: 0;
-          bottom: 34px;
+          bottom: 30px;
           border: 2px solid white;
           z-index: 2;
         }

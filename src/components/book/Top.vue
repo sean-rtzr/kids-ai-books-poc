@@ -23,7 +23,7 @@ onMounted(() => {
   width: 100%;
   height: 562px;
   max-height: 562px;
-  background-position: center;
+  background-position: top center;
   animation: scaleUp 2s forwards;
 }
 
