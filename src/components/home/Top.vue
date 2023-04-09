@@ -1,6 +1,6 @@
 <template>
   <div :class="page === 0 ? $style.firstPage : $style.secondPage">
-    <TopHead />
+    <TopHead @onLoadProfile="onLoadProfile" @onLoadNotification="onLoadNotification" />
     <GenerativeBtn :page="page" @openLoad="openLoad" />
     <Book @updatePage="updatePage"/>
   </div>
@@ -13,13 +13,24 @@ import GenerativeBtn from "./GenerativeBtn.vue";
 import Book from "./Book.vue";
 import {ref} from "vue";
 
-const emits = defineEmits(['openLoad'])
+const emits = defineEmits(['openLoad', 'onLoadProfile', 'onLoadNotification']);
 let page = ref(0)
 const updatePage = (no) => {
   page.value = no
 }
 const openLoad = () => {
   emits('openLoad', true)
+}
+const onLoadProfile = () => {
+  emits('onLoadProfile', true)
+}
+
+const onLoadNotification = () => {
+  emits('onLoadNotification', true)
+}
+
+const onEndProfile = () => {
+  emits('onEndProfile', true)
 }
 </script>
 

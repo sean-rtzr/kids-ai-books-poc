@@ -48,7 +48,7 @@ const onEndSlideChange = (swiper) => {
           <div :class="$style.inputs">
             <v-btn size="x-small" height="28px" rounded class="bg-purple-darken-3" :class="$style.ai">
               <v-img :src="icon_ai" width="12px" />
-              <p class="font-weight-bold pl-1">추천</p>
+              <p class="font-weight-bold pl-1 text-caption font-weight-bold">추천</p>
             </v-btn>
             <v-text-field v-model="name" :class="$style.name" hide-details bg-color="transparent" density="compact" placeholder="이름"></v-text-field>
             <v-textarea rows="2" no-resize max-rows="2" hide-details v-model="story" :class="$style.story" bg-color="transparent" density="compact" placeholder="이야기 내용">

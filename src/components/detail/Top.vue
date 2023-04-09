@@ -1,13 +1,14 @@
 <template>
-  <div ref="wrapper" :class="$style.wrapper">
-    <Comment :class="$style.comment"/>
-  </div>
+    <div ref="wrapper" :class="$style.wrapper">
+        <Comment :class="$style.comment"/>
+    </div>
 </template>
 
 <script setup>
 import {onBeforeUnmount, onMounted, ref} from "vue";
 import Comment from "./Comment.vue";
 import audioFile from "@/assets/audio/music_sample1.mp3";
+
 const bg_sample1 = new URL('@/assets/images/bg_sample1.jpg', import.meta.url).href;
 const bg_sample2 = new URL('@/assets/images/bg_sample2.jpg', import.meta.url).href;
 const wrapper = ref(null);
@@ -16,25 +17,25 @@ music.volume = 0.3;
 music.loop = true;
 
 onBeforeUnmount(() => {
-  music.pause();
+    music.pause();
 });
+onMounted(() => {
+    wrapper.value.style.backgroundImage = `url(${bg_sample1})`;
+    wrapper.value.style.backgroundSize = 'cover';
 
-onMounted( () => {
-  wrapper.value.style.backgroundImage = `url(${bg_sample1})`;
-  wrapper.value.style.backgroundSize = 'cover';
-  setTimeout(async () => {
-    wrapper.value.style.height = '292px'
-    await music.play();
-  }, 100)
+    setTimeout(async () => {
+        wrapper.value.style.height = '292px'
+        await music.play();
+    }, 100)
 
 });
 
 document.addEventListener("pause", async () => {
-  await music.play();
+    await music.play();
 });
 
 document.addEventListener("resume", async () => {
-  await music.play();
+    await music.play();
 });
 </script>
 
@@ -84,6 +85,7 @@ document.addEventListener("resume", async () => {
     opacity: 0.5;
   }
 }
+
 @keyframes showComment {
   0% {
     opacity: 0;

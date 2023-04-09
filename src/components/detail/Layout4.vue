@@ -5,7 +5,7 @@
         </v-btn>
         <p ref="dom_sample1" @click="onSound" :class="$style.text_sample1">{{ text_sample1 }}</p>
         <v-img :src="char_sample1" width="160px" :class="$style.char1"/>
-        <v-img :src="bg_sample1" width="300px" :class="$style.bg_sample1"/>
+        <v-img :src="bg_sample1" width="330px" :class="$style.bg_sample1"/>
     </div>
 </template>
 
@@ -14,15 +14,15 @@ import {onBeforeMount, ref} from "vue";
 
 const dom_sample1 = ref(null)
 const text_sample1 = ref("")
-const char_sample1 = new URL('@/assets/images/char_sample2_1.png', import.meta.url).href;
-const btn_pose = new URL('@/assets/images/btn_pose2.png', import.meta.url).href;
-const bg_sample1 = new URL('@/assets/images/bg_sample4.jpg', import.meta.url).href;
+const char_sample1 = new URL('@/assets/images/char_sample4.png', import.meta.url).href;
+const btn_pose = new URL('@/assets/images/btn_pose4.png', import.meta.url).href;
+const bg_sample1 = new URL('@/assets/images/bg_sample5.jpg', import.meta.url).href;
 
 const onSound = () => {
     dom_sample1.value.dataset.selected = true
 }
 onBeforeMount(() => {
-    text_sample1.value = "김산의 꿈은 공룡에 타고 하늘을 날아다니는 것이었습니다. 하지만 김산이는 공룡에 타고 날라다니기에는 너무 작았습니다."
+    text_sample1.value = "서윤이는 김산이가 꾸었던 꿈을 듣고, 함께 공룡을 찾아 떠납니다. 그리고 어느 순간, 둘은 공룡을 만납니다."
 })
 </script>
 
@@ -30,14 +30,14 @@ onBeforeMount(() => {
 .wrapper {
   position: relative;
   width: 100%;
-  height: 420px;
+  height: 500px;
   padding: 0 24px;
   margin: 120px 0;
   overflow: hidden;
 
   .btn_pose {
     position: absolute;
-    left: 40%;
+    left: 65%;
     transform: translateX(-50%);
     bottom: 32px;
     z-index: 2;
@@ -45,12 +45,14 @@ onBeforeMount(() => {
 
   .text_sample1 {
     position: absolute;
-    text-align: center;
+    text-align: left;
     font-size: 1.12rem;
     line-height: 1.4;
     font-weight: 900;
+    width: 70%;
     top: 12px;
-    left: 0;
+    left: 65%;
+    transform: translateX(-50%);
     padding: 0 32px;
     z-index: 2;
     box-sizing: border-box;
@@ -63,7 +65,8 @@ onBeforeMount(() => {
 
   .char1 {
     position: absolute;
-    left: 30%;
+    left: 70%;
+    bottom: 0;
     transform: translateX(-50%);
     bottom: 24px;
     z-index: 1;
@@ -72,8 +75,8 @@ onBeforeMount(() => {
   .bg_sample1 {
     position: absolute;
     left: 50%;
-    top: 55%;
-    transform: translate(-50%, -50%);
+    top: 20%;
+    transform: translateX(-50%);
     bottom: 0;
   }
 }

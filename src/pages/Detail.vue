@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div ref="contents" :class="$style.wrapper">
         <Back text="이전"/>
         <Top/>
         <Title title="공룡타고 떠나는 친구들의 즐거운 시간 여행"/>
@@ -14,13 +14,30 @@ import Top from "../components/detail/Top.vue";
 import Title from "../components/book/Title.vue";
 import Contents from "../components/detail/Contents.vue";
 import BookInfo from "../components/detail/BookInfo.vue";
+import {onMounted, ref} from "vue";
+import {useDisplay} from "vuetify";
+
+const contents = ref(null);
+const display = useDisplay();
+
+onMounted(() => {
+    contents.value.style.height = display.height.value + 'px';
+    contents.value.style.overflow = 'hidden';
+
+    setTimeout(() => {
+        contents.value.style.overflow = 'auto';
+    }, 2000);
+});
 </script>
 
 <style lang="scss" scoped module>
-.contents {
-    opacity: 0;
-    animation: fade-in 2s forwards 2s;
+.wrapper {
+    .contents {
+        opacity: 0;
+        animation: fade-in 2s forwards 2s;
+    }
 }
+
 
 @keyframes fade-in {
     0% {
