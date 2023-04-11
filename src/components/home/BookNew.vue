@@ -1,26 +1,36 @@
 <template>
-  <div class="text-black" :class="$style.wrapper">
-    <div :class="$style.char_add">
-      <v-btn width="40px" height="40px" color="transparent" :ripple="false" variant="flat" icon>
-        <v-img :src="char_add" width="40px" />
-      </v-btn>
-      <p :class="$style.text">추가</p>
-    </div>
+    <div class="text-black" :class="$style.wrapper">
+        <div :class="$style.char_add">
+            <v-btn width="40px" height="40px" color="transparent" :ripple="false" variant="flat" icon>
+                <v-img :src="char_add" width="40px"/>
+            </v-btn>
+            <p :class="$style.text">추가</p>
+        </div>
 
-    <v-btn width="40px" height="40px" color="transparent" :ripple="false" variant="flat" icon :class="$style.char_set">
-      <v-img :src="char_set" width="40px" />
-    </v-btn>
-    <v-img :src="char_sample1" width="100%" height="100%" :class="$style.char1"/>
-    <v-img :src="char_sample2" width="100%" height="100%" :class="$style.char2"/>
-  </div>
+        <v-btn width="40px" height="40px" color="transparent" :ripple="false" variant="flat" icon
+               :class="$style.char_set" @click="openOptions">
+            <v-img :src="char_set" width="40px"/>
+        </v-btn>
+        <v-img :src="char_sample1" width="100%" height="100%" :class="$style.char1"/>
+        <v-img :src="char_sample2" width="100%" height="100%" :class="$style.char2"/>
+    </div>
 </template>
 
 <script setup>
 
+
+import {useStore} from "vuex";
+
+const store = useStore();
 const char_sample1 = new URL('@/assets/images/char_sample1.gif', import.meta.url).href;
 const char_sample2 = new URL('@/assets/images/char_sample2_slot.gif', import.meta.url).href;
 const char_set = new URL('@/assets/images/btn_charset.png', import.meta.url).href;
 const char_add = new URL('@/assets/images/btn_friend_add.png', import.meta.url).href;
+
+
+const openOptions = () => {
+    store.commit('setOptions', {isOpen: true});
+}
 
 </script>
 
@@ -67,6 +77,7 @@ const char_add = new URL('@/assets/images/btn_friend_add.png', import.meta.url).
     height: 100%;
     object-fit: cover;
   }
+
   .char2 {
     position: absolute;
     top: -60px;

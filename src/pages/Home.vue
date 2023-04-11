@@ -1,5 +1,6 @@
 <template>
     <div>
+        <ObjectSet />
         <Notification :show="show" @onEndNotification="onEndNotification" />
         <MyProfile :isOpen="isOpenProfile" @onEndProfile="onEndProfile"/>
         <v-dialog
@@ -44,6 +45,7 @@ import 'vue3-lottie/dist/style.css'
 import book from '@/assets/lottie/book.json'
 import MyProfile from "@/components/profile/MyProfile.vue";
 import Notification from "@/components/notification/Notification.vue";
+import ObjectSet from "../components/home/ObjectSet.vue";
 
 // variables
 
