@@ -1,17 +1,24 @@
 const home = {
-    state: {
-        options: {
-            isOpen: false,
-        },
+  state: {
+    options: {
+      isOpen: false,
     },
-    getters: {
-        getOptions: (state) => state.options,
+    addFriend: {
+      isAdded: false,
     },
-    mutations: {
-        setOptions(state, options) {
-            state.options = options;
-        }
-    }
-}
+  },
+  getters: {
+    getOptions: (state) => state.options,
+    getAddFriend: (state) => state.addFriend,
+  },
+  mutations: {
+    setOptions(state, options) {
+      state.options = options;
+    },
+    setAddFriend(state, addFriend) {
+      state.addFriend = addFriend;
+    },
+  },
+};
 
 export default home;
