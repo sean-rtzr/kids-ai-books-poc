@@ -1,74 +1,112 @@
 <template>
-  <v-list
-    v-for="list in bestList"
-    :key="list.title"
-    :class="$style.list"
-    class="d-flex flex-row align-center"
-  >
-    <div :class="$style.thumbnail_wrapper">
-      <v-img :src="download" width="24px" :class="$style.download" />
-      <div v-if="list.starred === 1" :class="$style.chars">
-        <v-img :src="char_sample1" width="28px" />
-      </div>
-      <div v-if="list.starred === 2" :class="$style.chars">
-        <v-img :src="char_sample1" width="28px" />
-        <v-img :src="char_sample2" width="28px" />
-      </div>
-      <v-img
-        :src="list.thumbnail"
-        class="rounded-lg"
-        width="100%"
-        :class="$style.thumbnail"
-      />
-    </div>
-    <div :class="$style.contents">
-      <h5>{{ list.title }}</h5>
-      <p>작가</p>
-    </div>
-  </v-list>
+    <v-list
+            v-for="list in bestList"
+            :key="list.title"
+            :class="$style.list"
+            class="d-flex flex-row align-center"
+    >
+        <div :class="$style.thumbnail_wrapper">
+            <v-img :src="download" width="24px" :class="$style.download"/>
+            <div v-if="list.starred === 1" :class="$style.chars">
+                <v-img :src="char_sample1" width="28px"/>
+            </div>
+            <div v-if="list.starred === 2" :class="$style.chars">
+                <v-img :src="char_sample1" width="28px"/>
+                <v-img :src="char_sample2" width="28px"/>
+            </div>
+            <v-img
+                    :src="list.thumbnail"
+                    class="rounded-lg"
+                    width="100%"
+                    :class="$style.thumbnail"
+                    @click="applyStory(list.id)"
+            />
+        </div>
+        <div :class="$style.contents">
+            <div :class="$style.profile_wrapper">
+                <v-btn icon :class="$style.profile" class="pa-0 mr-1 bg-white d-flex justify-center align-center"
+                       size="x-small">
+                    <v-avatar color="white" size="small" variant="outlined">
+                        <v-img :src="list.profileImg"></v-img>
+                    </v-avatar>
+                </v-btn>
+                <div class="d-flex flex-column">
+                    <p :class="$style.author">{{ list.author }}</p>
+                    <p :class="$style.book">이야기책 <span style="color:#1ab96c">{{ list.book }}</span>권</p>
+                </div>
+
+            </div>
+
+            <h5 :class="$style.title">{{ list.title }}</h5>
+            <p :class="$style.objects">인원<span style="color:#1ab96c">{{ list.info.starred }}</span>명 . 길이 <span
+                    style="color:#1ab96c">{{ list.info.length }}</span>분 . <span
+                    style="color:#1ab96c">{{ list.info.objects[0] }}</span>외 <span
+                    style="color:#1ab96c"> {{ list.info.objects.length }}</span>개 물건</p>
+        </div>
+    </v-list>
 </template>
 
 <script setup>
+import {useStore} from "vuex";
+
+const store = useStore();
 const bg_sample1 = new URL("@/assets/images/bg_sample1.jpg", import.meta.url)
-  .href;
+    .href;
 const bg_sample2 = new URL("@/assets/images/bg_sample2.jpg", import.meta.url)
-  .href;
+    .href;
 const char_sample1 = new URL(
-  "@/assets/images/char_sample1.png",
-  import.meta.url
+    "@/assets/images/char_sample1.png",
+    import.meta.url
 ).href;
 const char_sample2 = new URL(
-  "@/assets/images/char_sample2.png",
-  import.meta.url
+    "@/assets/images/char_sample2.png",
+    import.meta.url
 ).href;
 
 const download = new URL(
-  "@/assets/images/btn_book_download.png",
-  import.meta.url
+    "@/assets/images/btn_book_download.png",
+    import.meta.url
 ).href;
+const profileImg1 = new URL('@/assets/images/profile_sample1.jpg', import.meta.url).href;
+const profileImg2 = new URL('@/assets/images/profile_sample2.jpg', import.meta.url).href;
 
 const bestList = [
-  {
-    thumbnail: bg_sample1,
-    starred: 1,
-    title: "나홀로 떠나는 신나는 우주여행",
-    info: {
-      starred: 1,
-      length: 1,
-      objects: ["공룡"],
+    {
+        id: 0,
+        thumbnail: bg_sample1,
+        starred: 1,
+        title: "나홀로 떠나는 신나는 우주여행",
+        prompt: "좌충우돌 우주여행을 떠나는 이야기",
+        author: "징징이맘",
+        book: 227,
+        profileImg: profileImg1,
+        info: {
+            starred: 1,
+            length: 1,
+            objects: ["공룡", "블록", "로봇"],
+        },
     },
-  },
-  {
-    thumbnail: bg_sample2,
-    starred: 2,
-    title: "친구와 함께 폴짝폴짝 농장체험",
-    info: {
-      starred: 1,
-      length: 2,
-      objects: ["자동차", "공"],
+    {
+        id: 1,
+        thumbnail: bg_sample2,
+        starred: 2,
+        title: "친구와 함께 폴짝폴짝 농장체험",
+        prompt: "친구와 즐겁게 농장체험을 한 이야기",
+        author: "은율이맘",
+        book: 410,
+        profileImg: profileImg2,
+        info: {
+            starred: 2,
+            length: 2,
+            objects: ["자동차", "공", "풍선", "공룡"],
+        },
     },
-  },
 ];
+
+const applyStory = (id) => {
+    store.commit('setCurrentStory', {id, book_story: bestList[id].prompt});
+    store.commit('setBookStory', bestList[id].prompt);
+};
 </script>
 
 <style lang="scss" scoped module>
@@ -105,6 +143,40 @@ const bestList = [
 
   .contents {
     padding: 0 12px;
+
+    .profile_wrapper {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding-bottom: 10px;
+
+      .profile {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+      }
+
+      .author {
+        font-size: 0.85rem;
+        font-weight: 700;
+      }
+
+      .book {
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: #999;
+      }
+    }
+
+    .title {
+      font-size: 0.9rem;
+      font-weight: 900;
+      padding-bottom: 2px;
+    }
+
+    .objects {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #999;
+    }
   }
 }
 </style>

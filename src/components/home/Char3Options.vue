@@ -3,11 +3,10 @@
     <div :class="$style.item">
       <v-img :src="obj_options_sample1" :class="$style.obj"></v-img>
       <v-btn
-        data-selected="true"
         :class="$style.btn"
         value="char1"
         variant="flat"
-        class="btn"
+        class="btn border-sm"
         @click="onSelectedItem(0)"
         >선택</v-btn
       >
@@ -98,10 +97,11 @@ const obj_options_sample6 = new URL(
 
 const onSelectedItem = (no) => {
   const btns = document.querySelectorAll(".btn");
-  btns.forEach((btn) => {
-    btn.setAttribute("data-selected", false);
-  });
-  btns[no].setAttribute("data-selected", true);
+ if(btns[no].getAttribute("data-selected")) {
+    btns[no].setAttribute("data-selected", false);
+ } else {
+     btns[no].setAttribute("data-selected", true);
+ }
 };
 </script>
 

@@ -1,98 +1,163 @@
 <template>
-  <v-container fluid class="pa-0 py-4" :class="$style.wrapper">
-    <div class="d-flex justify-center align-center flex-column">
-      <h1 :class="$style.subtitle">가지고 노는 이야기책</h1>
-      <h2 :class="$style.title">우리<span class="text-yellow">AI</span>북스</h2>
-      <swiper
-        :class="$style.books"
-        :slidesPerView="'auto'"
-        :centeredSlides="true"
-        @slideChange="onSlideChange"
-        @slide-change-transition-end="onEndSlideChange"
-      >
-        <swiper-slide class="book" :class="$style.book" data-selected="true">
-          <BookNew />
-          <div :class="$style.inputs">
-            <v-btn
-              size="x-small"
-              height="28px"
-              rounded
-              class="bg-purple-darken-3"
-              :class="$style.ai"
+    <v-container fluid class="pa-0 py-4" :class="$style.wrapper">
+        <div class="d-flex justify-center align-center flex-column">
+            <h1 :class="$style.subtitle" v-html="subtitle"></h1>
+            <swiper
+                    :class="$style.books"
+                    :slidesPerView="'auto'"
+                    :centeredSlides="true"
+                    @slideChange="onSlideChange"
+                    @slide-change-transition-end="onEndSlideChange"
             >
-              <v-img :src="icon_ai" width="12px" />
-              <p class="font-weight-bold pl-1 text-caption font-weight-bold">
-                추천
-              </p>
-            </v-btn>
-            <v-text-field
-              v-model="name"
-              :class="$style.name"
-              hide-details
-              bg-color="transparent"
-              density="compact"
-              placeholder="이름"
-            ></v-text-field>
-            <v-textarea
-              rows="2"
-              no-resize
-              max-rows="2"
-              hide-details
-              v-model="story"
-              :class="$style.story"
-              bg-color="transparent"
-              density="compact"
-              placeholder="이야기 내용"
-            >
-              <template v-slot:append-inner>
-                <v-icon width="40px"></v-icon>
-              </template>
-            </v-textarea>
-          </div>
-        </swiper-slide>
-        <swiper-slide class="book" :class="$style.book">
-          <v-img :src="book_add" width="40px" :class="$style.book_add" />
-        </swiper-slide>
-      </swiper>
-    </div>
-  </v-container>
+                <swiper-slide class="book" :class="$style.book" data-selected="true">
+                    <BookNew/>
+                    <div :class="$style.inputs">
+                        <v-tooltip
+                                v-model="showHintText"
+                                :text="hintText"
+                                location="top"
+                        >
+                            <template v-slot:activator="{ props }">
+                                <v-btn
+                                        size="x-small"
+                                        v-bind="props"
+                                        height="28px"
+                                        rounded
+                                        class="bg-purple-darken-3"
+                                        :class="$style.ai"
+                                        @click="getHint"
+                                >
+                                    <v-img :src="icon_ai" width="12px"/>
+                                    <p class="font-weight-bold text-caption font-weight-bold">
+                                        추천
+                                    </p>
+                                </v-btn>
+                            </template>
+                            <span class="text-caption text-center">{{ hintText }}</span>
+                        </v-tooltip>
+                        <v-text-field
+                                v-model="name"
+                                :class="$style.name"
+                                hide-details
+                                bg-color="transparent"
+                                density="compact"
+                                @change="setName"
+                                placeholder="이름"
+                        ></v-text-field>
+                        <v-textarea
+                                rows="2"
+                                no-resize
+                                max-rows="2"
+                                hide-details
+                                v-model="story"
+                                :class="$style.story"
+                                bg-color="transparent"
+                                density="compact"
+                                @change="setStory"
+                                placeholder="이야기 내용"
+                        >
+                            <template v-slot:append-inner>
+                                <v-icon width="40px"></v-icon>
+                            </template>
+                        </v-textarea>
+                    </div>
+                </swiper-slide>
+                <swiper-slide class="book" :class="$style.book">
+                    <v-img :src="book_add" width="40px" :class="$style.book_add"/>
+                </swiper-slide>
+            </swiper>
+        </div>
+    </v-container>
 </template>
 
 <script setup>
 // imports
-import { ref } from "vue";
-import { Swiper, SwiperSlide } from "swiper/vue";
+import {computed, reactive, ref, watch} from "vue";
+import {Swiper, SwiperSlide} from "swiper/vue";
 import "swiper/scss";
 import BookNew from "./BookNew.vue";
+import {useStore} from "vuex";
 
 // variables
 
 // refs
 const name = ref("");
 const story = ref("");
+const store = useStore();
+const subtitle = ref(`가지고 노는 이야기책<br/>우리<span style='color: yellow;'>AI</span>북스`);
+const showHintText = ref(false);
+const hintText = ref("이야기 내용");
+const hintTexts = [
+    "우주선을 타고 우주를 떠나는 이야기",
+    "유니콘을 만나 재미있게 놀았던 이야기",
+    "아기 코끼리를 구해줘서 기뻤던 이야기",
+    "놀다가 다쳤지만 씩씩하게 행동했던 이야기",
+    "치과가 무서웠지만 잘 다녀왔던 이야기",
+    "어린이집에서 친구와 속상했지만 놀면서 다시 친해진 이야기",
+];
+const total = hintTexts.length;
+let i = 0;
 const emits = defineEmits(["updatePage"]);
 const icon_ai = new URL("@/assets/images/icon_ai.png", import.meta.url).href;
-const book_add = new URL("@/assets/images/btn_book_add.png", import.meta.url)
-  .href;
+const book_add = new URL("@/assets/images/btn_book_add.png", import.meta.url).href;
+const currentStory = reactive(computed(() => store.getters.getCurrentStory));
+const setName = () => store.commit('setChar1Name', name.value);
+const setStory = () => store.commit('setBookStory', story.value);
 
 // methods
 
 const onSlideChange = (swiper) => {
-  const books = document.querySelectorAll(".book");
-  books.forEach((book) => {
-    book.setAttribute("data-selected", "false");
-  });
-  books[swiper.activeIndex].setAttribute("data-selected", "true");
+    const books = document.querySelectorAll(".book");
+    books.forEach((book) => {
+        book.setAttribute("data-selected", "false");
+    });
+    books[swiper.activeIndex].setAttribute("data-selected", "true");
 };
 
 const onEndSlideChange = (swiper) => {
-  emits("updatePage", swiper.activeIndex);
+    emits("updatePage", swiper.activeIndex);
 };
+
+const getHint = () => {
+    if (i > total - 1) i = 0;
+    hintText.value = hintTexts[i];
+    i++;
+};
+
+watch(currentStory, (val) => {
+    if (val === null) {
+        subtitle.value = `가지고 노는 이야기책<br/>우리<span style='color: yellow;'>AI</span>북스`;
+        story.value = ''
+    }
+    if (val === 0) {
+        subtitle.value = "나홀로 떠나는 신나는<br/> 우주여행";
+        story.value = store.getters.getBookInit.book_story;
+    }
+    if (val === 1) {
+        subtitle.value = "친구와 함께 폴짝폴짝<br/>농장체험";
+        story.value = store.getters.getBookInit.book_story;
+    }
+});
 
 // lifecycle
 </script>
-
+<style>
+input[type="text"] {
+    font-size: 0.875rem;
+    padding: 0 8px;
+}
+textarea {
+    font-size: 0.875rem;
+    margin:0;
+    text-indent: 0;
+    border:none;
+    height: 50px;
+    resize: none;
+    padding: 6px 8px !important;
+}
+</style>
 <style module lang="scss">
+
 .wrapper {
   height: 510px;
   color: #fff;
@@ -100,20 +165,9 @@ const onEndSlideChange = (swiper) => {
   .subtitle {
     font-size: 1.4rem;
     font-weight: 900;
-    line-height: 1;
+    line-height: 1.32;
+    text-align: center;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-  }
-
-  .title {
-    font-size: 1.4rem;
-    font-weight: 900;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-
-    span {
-      font-size: 1.58rem;
-      font-weight: 700;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-    }
   }
 
   .books {
@@ -149,7 +203,7 @@ const onEndSlideChange = (swiper) => {
 
         .ai {
           position: absolute;
-          right: 0;
+          right: -4px;
           bottom: 30px;
           border: 2px solid white;
           z-index: 2;
@@ -157,8 +211,11 @@ const onEndSlideChange = (swiper) => {
 
         .name,
         .story {
+          padding: 0;
+          margin: 0;
           color: black;
         }
+
         .name {
           margin-bottom: 12px;
         }

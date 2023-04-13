@@ -2,12 +2,17 @@
   <v-card width="280px" height="300px" :class="$style.wrapper" class="bg-white">
     <v-img :src="char_sample1" width="160px" :class="$style.char1"/>
     <v-img :src="char_sample2" width="160px" :class="$style.char2"/>
-    <p :class="$style.name1">서윤이</p>
+    <p :class="$style.name1">{{ bookInit.char1_name }}</p>
     <p :class="$style.name2">김산</p>
   </v-card>
 </template>
 
 <script setup>
+import {useStore} from "vuex";
+import {computed, reactive} from "vue";
+
+const store = useStore();
+const bookInit = reactive(computed(() => store.getters.getBookInit));
 const char_sample1 = new URL('@/assets/images/char_sample1.gif', import.meta.url).href;
 const char_sample2 = new URL('@/assets/images/char_sample2.png', import.meta.url).href;
 

@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Back />
         <ObjectSet />
         <Notification :show="show" @onEndNotification="onEndNotification" />
         <MyProfile :isOpen="isOpenProfile" @onEndProfile="onEndProfile"/>
@@ -46,6 +47,7 @@ import book from '@/assets/lottie/book.json'
 import MyProfile from "@/components/profile/MyProfile.vue";
 import Notification from "@/components/notification/Notification.vue";
 import ObjectSet from "../components/home/ObjectSet.vue";
+import Back from "../components/home/Back.vue";
 
 // variables
 
