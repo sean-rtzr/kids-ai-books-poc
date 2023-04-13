@@ -43,13 +43,13 @@
             <v-img :src="char_set" width="40px"/>
         </v-btn>
         <v-img
-                :src="isAdded ? char_sample1_1 : char_sample1"
+                :src="bookInit.char1_src"
                 width="100%"
                 height="100%"
-                :class="$style.char1"
+                :class="currentStory === 0 ? $style.char1_only : $style.char1"
         />
         <v-img
-                :src="isAdded ? char_sample3 : currentStory === 0 ? '' : currentStory === 1 ? char_sample4 : char_sample2"
+                :src="isAdded ? bookInit.char2_src : currentStory === 0 ? '' : currentStory === 1 ? char_sample4 : char_sample2"
                 width="100%"
                 height="100%"
                 :class="isAdded ? $style.char3 : $style.char2"
@@ -62,6 +62,7 @@ import {useStore} from "vuex";
 import {computed, reactive} from "vue";
 
 const store = useStore();
+const bookInit = reactive(computed(() => store.getters.getBookInit));
 const char_sample1 = new URL(
     "@/assets/images/char_sample1.gif",
     import.meta.url
@@ -156,6 +157,17 @@ const deleteFriend = () => {
     position: absolute;
     top: -64px;
     left: -48px;
+    width: 100%;
+    max-width: 160px;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .char1_only {
+    position: absolute;
+    top: -64px;
+    left: 50%;
+    transform: translateX(-50%);
     width: 100%;
     max-width: 160px;
     height: 100%;

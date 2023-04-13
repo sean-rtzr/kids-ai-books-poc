@@ -1,7 +1,7 @@
 <template>
     <div class="book_cover" :class="page === 0 ? $style.firstPage : $style.secondPage">
         <TopHead @onLoadProfile="onLoadProfile" @onLoadNotification="onLoadNotification"/>
-        <GenerativeBtn :page="page" @openLoad="openLoad"/>
+        <GenerativeBtn :page="page"/>
         <Book @updatePage="updatePage"/>
     </div>
 </template>
@@ -27,9 +27,7 @@ const updatePage = (no) => {
     if(page.value === 0) bookCover.style.backgroundColor = '#01C17B';
     if(page.value === 1) bookCover.style.backgroundColor = '#019EC1';
 }
-const openLoad = () => {
-    emits('openLoad', true)
-}
+
 const onLoadProfile = () => {
     emits('onLoadProfile', true)
 }

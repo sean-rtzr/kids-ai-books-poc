@@ -5,14 +5,46 @@
 </template>
 
 <script setup>
-import {onBeforeUnmount, onMounted, ref} from "vue";
+import {computed, onBeforeUnmount, onMounted, reactive, ref} from "vue";
 import Comment from "./Comment.vue";
-import audioFile from "@/assets/audio/music_sample1.mp3";
+// import audioFile from "@/assets/audio/music_sample1.mp3";
+import {useStore} from "vuex";
 
-const bg_sample1 = new URL('@/assets/images/bg_sample1.jpg', import.meta.url).href;
-const bg_sample2 = new URL('@/assets/images/bg_sample2.jpg', import.meta.url).href;
+const store = useStore();
+const audio = [
+    {
+        id: 0,
+        src: new URL('@/assets/audio/music_sample1.mp3', import.meta.url).href,
+    },
+    {
+        id: 1,
+        src: new URL('@/assets/audio/music_sample2.mp3', import.meta.url).href,
+    },
+    {
+        id: 2,
+        src: new URL('@/assets/audio/music_sample3.mp3', import.meta.url).href,
+    },
+    {
+        id: 3,
+        src: new URL('@/assets/audio/music_sample4.mp3', import.meta.url).href,
+    },
+    {
+        id: 4,
+        src: new URL('@/assets/audio/music_sample5.mp3', import.meta.url).href,
+    },
+    {
+        id: 5,
+        src: new URL('@/assets/audio/music_sample6.mp3', import.meta.url).href,
+    },
+    {
+        id: 6,
+        src: new URL('@/assets/audio/music_sample7.mp3', import.meta.url).href,
+    },
+]
+const bookCover = reactive(computed(() => store.getters.getBookCover));
 const wrapper = ref(null);
-const music = new Audio(audioFile);
+const rand = Math.floor(Math.random() * audio.length);
+const music = new Audio(audio[rand].src);
 music.volume = 0.3;
 music.loop = true;
 
@@ -20,7 +52,7 @@ onBeforeUnmount(() => {
     music.pause();
 });
 onMounted(() => {
-    wrapper.value.style.backgroundImage = `url(${bg_sample1})`;
+    wrapper.value.style.backgroundImage = `url(${bookCover.value})`;
     wrapper.value.style.backgroundSize = 'cover';
 
     setTimeout(async () => {
@@ -31,7 +63,7 @@ onMounted(() => {
 });
 
 document.addEventListener("pause", async () => {
-    await music.play();
+    await music.pause();
 });
 
 document.addEventListener("resume", async () => {

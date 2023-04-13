@@ -3,7 +3,7 @@
         <v-btn rounded width="48px" height="48px" density="compact" size="small" :class="$style.btn_pose">
             <v-img :src="btn_pose" width="50px"/>
         </v-btn>
-        <p ref="dom_sample1" @click="onSound" :class="$style.text_sample1">{{ text_sample1 }}</p>
+        <p ref="dom_sample1" @click="onSound" :class="$style.text_sample1" v-html="text_sample1"></p>
         <v-img :src="char_sample1" width="160px" :class="$style.char1"/>
         <v-img :src="bg_sample1" width="300px" :class="$style.bg_sample1"/>
     </div>
@@ -22,7 +22,7 @@ const onSound = () => {
     dom_sample1.value.dataset.selected = true
 }
 onBeforeMount(() => {
-    text_sample1.value = "서윤이는 김산이가 꾸었던 꿈을 듣고, 함께 공룡을 찾아 떠납니다. 그리고 어느 순간, 둘은 공룡을 만납니다."
+    text_sample1.value = `공룡은 둘과함께 공놀이도하고 등에 태워 하늘을 나는 것을 제안했습니다. 그들은 서로의 꿈을 이루게 되었습니다.`
 })
 </script>
 

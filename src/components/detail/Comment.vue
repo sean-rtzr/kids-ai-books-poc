@@ -12,8 +12,12 @@
 </template>
 
 <script setup>
+import {computed, reactive} from "vue";
+import {useStore} from "vuex";
+
+const store = useStore();
 const profileImg = new URL('@/assets/images/profile_sample1.jpg', import.meta.url).href;
-const comment = "산이 어머님 윤이가 요즘 산이랑 친하게 <br/>지내서 너무 행복해해요.<br/>이야기를 읽고 산이도 행복했으면 좋겠어요."
+const comment =  reactive(computed(() => store.getters.getComment))
 </script>
 
 <style lang="scss" scoped module>

@@ -1,12 +1,18 @@
 <template>
     <v-card width="280px" height="300px" :class="$style.wrapper" class="bg-white">
-        <v-img :src="char_sample1" width="160px"
-               :class="currentStory !== 1 ? $style.char1_only : $style.char1"/>
-        <v-img v-if="currentStory === 1 || isAdded" :src="char_sample2" width="140px" :class="$style.char2"/>
-        <p :class="currentStory !== 1 || currentStory === null ? $style.name1_only : $style.name1">
+        <v-img :src="bookInit.char1_src" width="160px"
+               :class="currentStory !== 1 && !isAdded ? $style.char1_only : $style.char1"/>
+        <v-img v-if="currentStory === 1 || isAdded" :src="bookInit.char2_src" width="140px" :class="$style.char2"/>
+        <p :class="currentStory !== 1 && !isAdded ? $style.name1_only : $style.name1">
             {{ bookInit.char1_name }}</p>
         <p v-if="currentStory === 1 || isAdded " :class="$style.name2">{{ bookInit.char2_name }}</p>
-        <p :class="$style.object">이야기에 등장하는 물건</p>
+        <p :class="$style.object">{{ bookInit.objects.length === 0 ? '선택한 물건없음' : '이야기에 등장하는 물건' }}</p>
+        <div v-if="bookInit.objects.length !== 0"
+             :class="$style.objects">
+            <v-img v-for="object in bookInit.objects"
+                   :key="object.id"
+                   :src="object.src"/>
+        </div>
     </v-card>
 </template>
 
@@ -87,16 +93,29 @@ const char_sample2 = new URL('@/assets/images/char_sample2.png', import.meta.url
     color: #FFD14C;
   }
 
-    .object {
-        position: absolute;
-        width: 100%;
-        text-align: center;
-        font-size: 0.875rem;
-        font-weight: 700;
-        color: #666;
-        left: 50%;
-        transform: translateX(-50%);
-        bottom: 24px;
-    }
+  .object {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #999;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 24px;
+  }
+
+  .objects {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -72px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 88px;
+  }
 }
 </style>

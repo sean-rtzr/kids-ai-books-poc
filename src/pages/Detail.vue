@@ -2,9 +2,10 @@
     <div ref="contents" :class="$style.wrapper">
         <Back text="이전"/>
         <Top/>
-        <Title title="공룡타고 떠나는 친구들의 즐거운 시간 여행"/>
+        <Title :title="bookInit.title"/>
         <BookInfo/>
-        <Contents :class="$style.contents"/>
+        <Contents v-if="isAdded || getCurrentStory === 1" :class="$style.contents"/>
+        <Content v-else :class="$style.contents"/>
     </div>
 </template>
 
@@ -13,10 +14,16 @@ import Back from "../components/common/Back.vue";
 import Top from "../components/detail/Top.vue";
 import Title from "../components/book/Title.vue";
 import Contents from "../components/detail/Contents.vue";
+import Content from "../components/detail/Content.vue";
 import BookInfo from "../components/detail/BookInfo.vue";
-import {onMounted, ref} from "vue";
+import {computed, onMounted, reactive, ref} from "vue";
 import {useDisplay} from "vuetify";
+import {useStore} from "vuex";
 
+const store = useStore();
+const bookInit = reactive(computed(() => store.getters.getBookInit));
+const isAdded = reactive(computed(() => store.getters.getAddFriend.isAdded));
+const getCurrentStory = reactive(computed(() => store.getters.getCurrentStory));
 const contents = ref(null);
 const display = useDisplay();
 

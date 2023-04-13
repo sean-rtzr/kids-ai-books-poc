@@ -1,107 +1,91 @@
 <template>
-  <div :class="$style.wrapper">
-    <div :class="$style.item">
-      <v-img :src="obj_options_sample1" :class="$style.obj"></v-img>
-      <v-btn
-        :class="$style.btn"
-        value="char1"
-        variant="flat"
-        class="btn border-sm"
-        @click="onSelectedItem(0)"
-        >선택</v-btn
-      >
+    <div :class="$style.wrapper">
+        <div v-for="object in objects" :key="object.id" :class="$style.item">
+            <v-img :src="object.src" :class="$style.obj"></v-img>
+            <v-btn
+                    :class="$style.btn"
+                    :value="object.value"
+                    variant="flat"
+                    class="btn border-sm"
+                    @click="onSelectedItem(object.id-1)">
+                선택
+            </v-btn>
+        </div>
     </div>
-    <div :class="$style.item">
-      <v-img :src="obj_options_sample2" :class="$style.obj"></v-img>
-      <v-btn
-        :class="$style.btn"
-        value="char2"
-        variant="flat"
-        class="btn border-sm"
-        @click="onSelectedItem(1)"
-        >선택</v-btn
-      >
-    </div>
-    <div :class="$style.item">
-      <v-img :src="obj_options_sample3" :class="$style.obj"></v-img>
-      <v-btn
-        :class="$style.btn"
-        value="char3"
-        variant="flat"
-        class="btn border-sm"
-        @click="onSelectedItem(2)"
-        >선택</v-btn
-      >
-    </div>
-    <div :class="$style.item">
-      <v-img :src="obj_options_sample4" :class="$style.obj"></v-img>
-      <v-btn
-        :class="$style.btn"
-        value="char3"
-        variant="flat"
-        class="btn border-sm"
-        @click="onSelectedItem(3)"
-        >선택</v-btn
-      >
-    </div>
-    <div :class="$style.item">
-      <v-img :src="obj_options_sample5" :class="$style.obj"></v-img>
-      <v-btn
-        :class="$style.btn"
-        value="char3"
-        variant="flat"
-        class="btn border-sm"
-        @click="onSelectedItem(4)"
-        >선택</v-btn
-      >
-    </div>
-    <div :class="$style.item">
-      <v-img :src="obj_options_sample6" :class="$style.obj"></v-img>
-      <v-btn
-        :class="$style.btn"
-        value="char3"
-        variant="flat"
-        class="btn border-sm"
-        @click="onSelectedItem(5)"
-        >선택</v-btn
-      >
-    </div>
-  </div>
 </template>
 
 <script setup>
-const obj_options_sample1 = new URL(
-  "@/assets/images/obj_options_sample1.png",
-  import.meta.url
-).href;
-const obj_options_sample2 = new URL(
-  "@/assets/images/obj_options_sample2.png",
-  import.meta.url
-).href;
-const obj_options_sample3 = new URL(
-  "@/assets/images/obj_options_sample3.png",
-  import.meta.url
-).href;
-const obj_options_sample4 = new URL(
-  "@/assets/images/obj_options_sample4.png",
-  import.meta.url
-).href;
-const obj_options_sample5 = new URL(
-  "@/assets/images/obj_options_sample5.png",
-  import.meta.url
-).href;
-const obj_options_sample6 = new URL(
-  "@/assets/images/obj_options_sample6.png",
-  import.meta.url
-).href;
+import {useStore} from "vuex";
+
+const store = useStore();
+const objects = [
+    {
+        id: 1,
+        name: "비치볼",
+        value: "obj1",
+        src: new URL(
+            "@/assets/images/obj_options_sample1.png",
+            import.meta.url
+        ).href,
+    },
+    {
+        id: 2,
+        name: "풍선",
+        value: "obj2",
+        src: new URL(
+            "@/assets/images/obj_options_sample2.png",
+            import.meta.url
+        ).href,
+    },
+    {
+        id: 3,
+        name: "마법사 모자",
+        value: "obj3",
+        src: new URL(
+            "@/assets/images/obj_options_sample3.png",
+            import.meta.url
+        ).href,
+    },
+    {
+        id: 4,
+        name: "로켓",
+        value: "obj4",
+        src: new URL(
+            "@/assets/images/obj_options_sample4.png",
+            import.meta.url
+        ).href,
+    },
+    {
+        id: 5,
+        name: "강아지",
+        value: "obj5",
+        src: new URL(
+            "@/assets/images/obj_options_sample5.png",
+            import.meta.url
+        ).href,
+    },
+    {
+        id: 6,
+        name: "고양이",
+        value: "obj6",
+        src: new URL(
+            "@/assets/images/obj_options_sample6.png",
+            import.meta.url
+        ).href,
+    },
+
+]
 
 const onSelectedItem = (no) => {
-  const btns = document.querySelectorAll(".btn");
- if(btns[no].getAttribute("data-selected")) {
-    btns[no].setAttribute("data-selected", false);
- } else {
-     btns[no].setAttribute("data-selected", true);
- }
+    const btns = document.querySelectorAll(".btn");
+    if (btns[no].getAttribute("data-selected") === "true") {
+        btns[no].setAttribute("data-selected", false);
+        store.commit('deleteObjects', objects[no]);
+    } else {
+        btns[no].setAttribute("data-selected", true);
+        store.commit('setObjects', objects[no]);
+    }
+
 };
 </script>
 

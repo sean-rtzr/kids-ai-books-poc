@@ -34,7 +34,7 @@
           >주인공</v-btn
         >
 
-        <v-btn value="char2" :class="$style.btn" class="bg-transparent"
+        <v-btn v-if="isAdded" value="char2" :class="$style.btn" class="bg-transparent"
           >친구</v-btn
         >
 
@@ -59,6 +59,7 @@ import Char3Options from "./Char3Options.vue";
 const store = useStore();
 const text = ref("char1");
 const isOpen = reactive(computed(() => store.getters.getOptions.isOpen));
+const isAdded = reactive(computed(() => store.getters.getAddFriend.isAdded));
 const btn_close = new URL("@/assets/images/btn_close.png", import.meta.url)
   .href;
 

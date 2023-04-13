@@ -3,15 +3,18 @@
         <v-btn rounded width="48px" height="48px" density="compact" size="small" :class="$style.btn_pose">
             <v-img :src="btn_pose" width="50px"/>
         </v-btn>
-        <p ref="dom_sample1" @click="onSound" :class="$style.text_sample1">{{ text_sample1 }}</p>
+        <p ref="dom_sample1" @click="onSound" :class="$style.text_sample1" v-html="text_sample1"></p>
         <v-img :src="char_sample1" width="160px" :class="$style.char1"/>
         <v-img :src="bg_sample1" width="300px" :class="$style.bg_sample1"/>
     </div>
 </template>
 
 <script setup>
-import {onBeforeMount, ref} from "vue";
+import {computed, onBeforeMount, reactive, ref} from "vue";
+import {useStore} from "vuex";
 
+const store = useStore();
+const bookInit = reactive(computed(() => store.getters.getBookInit));
 const dom_sample1 = ref(null)
 const text_sample1 = ref("")
 const char_sample1 = new URL('@/assets/images/char_sample2_1.png', import.meta.url).href;
@@ -22,7 +25,7 @@ const onSound = () => {
     dom_sample1.value.dataset.selected = true
 }
 onBeforeMount(() => {
-    text_sample1.value = "김산의 꿈은 공룡에 타고 하늘을 날아다니는 것이었습니다. 하지만 김산이는 공룡에 타고 날라다니기에는 너무 작았습니다."
+    text_sample1.value = `<span class="text-yellow-darken-2">${bookInit.value.char2_name}</span>의 꿈은 공룡에 타고 하늘을 날아다니는 것이었습니다. 하지만 <span class="text-yellow-darken-2">${bookInit.value.char2_name}</span>은 공룡에 타고 날라다니기에는 너무 작았습니다.`
 })
 </script>
 

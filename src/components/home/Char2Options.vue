@@ -1,36 +1,14 @@
 <template>
   <div :class="$style.wrapper">
-    <div :class="$style.item">
-      <v-img :src="char_options_sample1" :class="$style.char"></v-img>
+    <div v-for="character in characters" :key="character.id" :class="$style.item">
+      <v-img :src="character.src" :class="$style.char"></v-img>
       <v-btn
-        data-selected="true"
+        :data-selected="character.id === 1"
         :class="$style.btn"
         value="char1"
         variant="flat"
         class="btn"
-        @click="onSelectedItem(0)"
-        >선택</v-btn
-      >
-    </div>
-    <div :class="$style.item">
-      <v-img :src="char_options_sample2" :class="$style.char"></v-img>
-      <v-btn
-        :class="$style.btn"
-        value="char2"
-        variant="flat"
-        class="btn border-sm"
-        @click="onSelectedItem(1)"
-        >선택</v-btn
-      >
-    </div>
-    <div :class="$style.item">
-      <v-img :src="char_options_sample3" :class="$style.char"></v-img>
-      <v-btn
-        :class="$style.btn"
-        value="char3"
-        variant="flat"
-        class="btn border-sm"
-        @click="onSelectedItem(2)"
+        @click="onSelectedItem(character.id)"
         >선택</v-btn
       >
     </div>
@@ -38,25 +16,43 @@
 </template>
 
 <script setup>
-const char_options_sample1 = new URL(
-  "@/assets/images/char_options_sample4.png",
-  import.meta.url
-).href;
-const char_options_sample2 = new URL(
-  "@/assets/images/char_options_sample5.png",
-  import.meta.url
-).href;
-const char_options_sample3 = new URL(
-  "@/assets/images/char_options_sample6.png",
-  import.meta.url
-).href;
+import {useStore} from "vuex";
+
+const store = useStore();
+const characters = [
+    {
+        id: 1,
+        name: "char4",
+        src: new URL(
+            "@/assets/images/char_options_sample4.png",
+            import.meta.url
+        ).href
+    },
+    {
+        id: 2,
+        name: "char5",
+        src: new URL(
+            "@/assets/images/char_options_sample5.png",
+            import.meta.url
+        ).href
+    },
+    {
+        id: 3,
+        name: "char6",
+        src: new URL(
+            "@/assets/images/char_options_sample6.png",
+            import.meta.url
+        ).href
+    },
+]
 
 const onSelectedItem = (no) => {
   const btns = document.querySelectorAll(".btn");
   btns.forEach((btn) => {
     btn.setAttribute("data-selected", false);
   });
-  btns[no].setAttribute("data-selected", true);
+  btns[no-1].setAttribute("data-selected", true);
+    store.commit('setChar2Src', characters[no-1].src);
 };
 </script>
 

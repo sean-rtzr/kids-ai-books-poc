@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.wrapper">
     <p :class="$style.text">함께보는 사람이 있다면?</p>
-    <v-btn variant="flat" rounded :class="$style.btn">
+    <v-btn variant="flat" rounded :class="$style.btn" @click="openComment">
       <template v-slot:prepend>
         <v-img :src="icon_write" width="16px"></v-img>
       </template>
@@ -11,7 +11,14 @@
 </template>
 
 <script setup>
+import {useStore} from "vuex";
+
+const store = useStore();
 const icon_write = new URL('@/assets/images/icon_write.png', import.meta.url).href;
+
+const openComment = () => {
+  store.commit('setOpenComment', true);
+}
 </script>
 
 <style lang="scss" scoped module>

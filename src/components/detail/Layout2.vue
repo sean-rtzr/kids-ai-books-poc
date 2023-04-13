@@ -8,14 +8,17 @@
         <v-btn rounded width="48px" height="48px" density="compact" size="small" :class="$style.btn_pose">
             <v-img :src="btn_pose" width="50px"/>
         </v-btn>
-        <p ref="dom_sample1" @click="onSound" :class="$style.text_sample1">{{ text_sample1 }}</p>
+        <p ref="dom_sample1" @click="onSound" :class="$style.text_sample1" v-html="text_sample1"></p>
         <v-img :src="bg_sample1" width="300px" :class="$style.bg_sample1"/>
     </div>
 </template>
 
 <script setup>
-import {onBeforeMount, ref} from "vue";
+import {computed, onBeforeMount, reactive, ref} from "vue";
+import {useStore} from "vuex";
 
+const store = useStore();
+const bookInit = reactive(computed(() => store.getters.getBookInit));
 const dom_sample1 = ref(null)
 const text_sample1 = ref("")
 const char_sample1 = new URL('@/assets/images/char_sample1_1.png', import.meta.url).href;
@@ -28,7 +31,7 @@ const onSound = () => {
 }
 
 onBeforeMount(() => {
-    text_sample1.value = "서윤이는 매일같이 공룡 이야기를 듣는 것을 좋아했고, 김산은 블록을 좋아했습니다."
+    text_sample1.value = `<span class="text-green-darken-2">${bookInit.value.char1_name}</span>는 매일같이 공룡 이야기를 듣는 것을 좋아했고, <span class="text-yellow-darken-2">${bookInit.value.char2_name}</span>은 블록을 좋아했습니다.`
 })
 </script>
 

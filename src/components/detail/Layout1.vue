@@ -1,17 +1,19 @@
 <template>
     <div :class="$style.wrapper">
         <v-img :src="char_sample1" width="160px" :class="$style.char1"/>
-        <p :class="$style.name1">{{ name1 }}</p>
-        <v-img :src="char_sample2" width="160px" :class="$style.char2"/>
-        <p :class="$style.name2">{{ name2 }}</p>
-        <v-img :src="char_sample2" width="160px" :class="$style.char2"/>
-        <p ref="dom_sample1" @click="onSound" :class="$style.text_sample1">{{ text_sample1 }}</p>
+        <p :class="$style.name1">{{ bookInit.char1_name }}</p>
+        <v-img :src="char_sample2" width="140px" :class="$style.char2"/>
+        <p :class="$style.name2">{{ bookInit.char2_name }}</p>
+        <p ref="dom_sample1" @click="onSound" :class="$style.text_sample1" v-html="text_sample1"></p>
     </div>
 </template>
 
 <script setup>
-import {onBeforeMount, ref} from "vue";
+import {computed, onBeforeMount, reactive, ref} from "vue";
+import {useStore} from "vuex";
 
+const store = useStore();
+const bookInit = reactive(computed(() => store.getters.getBookInit))
 const dom_sample1 = ref(null)
 const text_sample1 = ref("")
 const name1 = ref("");
@@ -24,9 +26,7 @@ const onSound = () => {
 }
 
 onBeforeMount(() => {
-    name1.value = "서윤이"
-    name2.value = "김산"
-    text_sample1.value = "한때 서로를 모르던 두 친구, 서윤이와 김산이 있었습니다."
+    text_sample1.value = `한때 서로를 모르던 두 친구, <span class="text-green-darken-2">${bookInit.value.char1_name}</span>와 <span class="text-yellow-darken-2">${bookInit.value.char2_name}</span>이 있었습니다.`
 })
 
 </script>
@@ -50,7 +50,7 @@ onBeforeMount(() => {
   .char2 {
     position: absolute;
     right: 10%;
-    top: 0;
+    top: 20px;
     z-index: 1;
   }
 

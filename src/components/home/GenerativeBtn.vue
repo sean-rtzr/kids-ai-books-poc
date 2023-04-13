@@ -15,6 +15,7 @@
 <script setup>
 import {computed, reactive, ref} from "vue";
 import {useStore} from "vuex";
+import {titleFromAI} from "../../utils/openai.js";
 
 const store = useStore();
 
@@ -25,11 +26,10 @@ const openLoad = () => {
     if (bookInit.value.char1_name === '' || bookInit.value.book_story === '') {
         alert('주인공 이름과 내용을 확인해주세요')
     } else {
-        emits("openLoad", true)
+        store.commit('setLoading', true)
     }
 }
 
-const isOpen = ref(false)
 </script>
 
 <style lang="scss" scoped module>
