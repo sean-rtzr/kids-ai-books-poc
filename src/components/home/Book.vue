@@ -21,7 +21,7 @@
                         >
                             <template v-slot:activator="{ props }">
                                 <v-btn
-                                        v-if="currentStory === null"
+                                        v-if="currentStory.value === null"
                                         size="x-small"
                                         v-bind="props"
                                         height="28px"
@@ -49,7 +49,7 @@
                                     placeholder="이름"
                             ></v-text-field>
                             <v-text-field
-                                v-if="currentStory === 1 || isAdded"
+                                v-if="currentStory.value === 1 || isAdded.value"
                                     v-model="friendName"
                                     :class="$style.char2_name"
                                     hide-details
@@ -63,7 +63,7 @@
                         <v-textarea
                                 rows="2"
                                 no-resize
-                                :readonly="currentStory !== null"
+                                :readonly="currentStory.value !== null"
                                 max-rows="2"
                                 hide-details
                                 v-model="story"
@@ -79,7 +79,7 @@
                         </v-textarea>
                     </div>
                 </swiper-slide>
-                <swiper-slide v-if="currentStory === null" class="book" :class="$style.book">
+                <swiper-slide v-if="currentStory.value === null" class="book" :class="$style.book">
                     <v-img :src="book_add" width="40px" :class="$style.book_add"/>
                 </swiper-slide>
             </swiper>

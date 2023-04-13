@@ -7,7 +7,7 @@
       </v-avatar>
     </v-btn>
     <v-list-item-title :class="$style.name">징징이맘</v-list-item-title>
-    <p v-html="comment" :class="$style.comment"></p>
+    <p v-html="comment.value" :class="$style.comment"></p>
   </div>
 </template>
 

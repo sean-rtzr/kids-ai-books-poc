@@ -1,8 +1,8 @@
 <template>
     <div class="text-black" :class="$style.wrapper">
-        <div v-if="currentStory === null" :class="$style.char_add">
+        <div v-if="currentStory.value === null" :class="$style.char_add">
             <v-btn
-                    v-if="isAdded"
+                    v-if="isAdded.value"
                     width="40px"
                     height="40px"
                     color="transparent"
@@ -26,11 +26,11 @@
             >
                 <v-img :src="char_add" width="40px"/>
             </v-btn>
-            <p v-if="!isAdded" :class="$style.text">추가</p>
+            <p v-if="!isAdded.value" :class="$style.text">추가</p>
         </div>
 
         <v-btn
-                v-if="currentStory === null"
+                v-if="currentStory.value === null"
                 width="40px"
                 height="40px"
                 color="transparent"
@@ -43,16 +43,16 @@
             <v-img :src="char_set" width="40px"/>
         </v-btn>
         <v-img
-                :src="bookInit.char1_src"
+                :src="bookInit.value.char1_src"
                 width="100%"
                 height="100%"
-                :class="currentStory === 0 ? $style.char1_only : $style.char1"
+                :class="currentStory.value === 0 ? $style.char1_only : $style.char1"
         />
         <v-img
-                :src="isAdded ? bookInit.char2_src : currentStory === 0 ? '' : currentStory === 1 ? char_sample4 : char_sample2"
+                :src="isAdded.value ? bookInit.value.char2_src : currentStory.value === 0 ? '' : currentStory.value === 1 ? char_sample4 : char_sample2"
                 width="100%"
                 height="100%"
-                :class="isAdded ? $style.char3 : $style.char2"
+                :class="isAdded.value ? $style.char3 : $style.char2"
         />
     </div>
 </template>

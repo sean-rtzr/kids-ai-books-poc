@@ -1,6 +1,6 @@
 <template>
   <v-overlay
-    v-model="isOpen"
+    v-model="isOpen.value"
     width="100%"
     :height="$vuetify.display.height + 'px'"
     transition="scroll-y-reverse-transition"
@@ -34,7 +34,7 @@
           >주인공</v-btn
         >
 
-        <v-btn v-if="isAdded" value="char2" :class="$style.btn" class="bg-transparent"
+        <v-btn v-if="isAdded.value" value="char2" :class="$style.btn" class="bg-transparent"
           >친구</v-btn
         >
 

@@ -1,6 +1,6 @@
 <template>
     <v-dialog
-            v-model="isOpenComment"
+            v-model="isOpenComment.value"
             persistent
     >
         <v-card class="px-4 rounded-lg" >

@@ -28,7 +28,7 @@ const home = {
         currentStory: null,
     },
     getters: {
-        getLoading: (state) => state.isLoading,
+        getIsLoading: (state) => state.isLoading,
         getBookInit: (state) => state.book_init,
         getOptions: (state) => state.options,
         getAddFriend: (state) => state.addFriend,

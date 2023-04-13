@@ -1,7 +1,6 @@
 <template>
     <v-dialog
-            v-model="isLoading"
-            :scrim="false"
+            v-model="isLoading.value"
             persistent
             width="auto"
     >
@@ -36,14 +35,13 @@ import {useStore} from "vuex";
 
 const router = useRouter();
 const store = useStore();
-const isLoading = reactive(computed(()=> store.getters.getLoading))
+const isLoading = reactive(computed(()=> store.getters.getIsLoading))
 const bookInit = reactive(computed(() => store.getters.getBookInit))
 
 watch(isLoading, async (val) => {
   if(val=== true) {
       if(bookInit.value.title === '') {
-          const title = await titleFromAI(bookInit.value.book_story)
-          console.log('title: ', title);
+          const title = await titleFromAI(bookInit.value.book_story);
           await store.commit('setBookTitle', title);
       }
       setTimeout(() => {

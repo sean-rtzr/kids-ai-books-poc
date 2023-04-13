@@ -29,6 +29,7 @@ const prevPage = () => {
         objects: [],
         title: "",
         cover: "",
+        comment: "산이 어머님 윤이가 요즘 산이랑 친하게 <br/>지내서 너무 행복해해요.<br/>이야기를 읽고 산이도 행복했으면 좋겠어요.",
         book_story: ""
     });
     store.commit('setAddFriend', {isAdded: false});

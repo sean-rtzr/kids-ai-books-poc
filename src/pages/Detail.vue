@@ -4,7 +4,7 @@
         <Top/>
         <Title :title="bookInit.title"/>
         <BookInfo/>
-        <Contents v-if="isAdded || getCurrentStory === 1" :class="$style.contents"/>
+        <Contents v-if="isAdded.value || getCurrentStory.value === 1" :class="$style.contents"/>
         <Content v-else :class="$style.contents"/>
     </div>
 </template>
