@@ -5,7 +5,7 @@
             :class="$style.list"
             class="d-flex flex-row align-center"
     >
-        <div :class="$style.thumbnail_wrapper">
+        <div :class="$style.thumbnail_wrapper" @click="applyStory(list.id)">
             <v-img :src="download" width="24px" :class="$style.download"/>
             <div v-if="list.starred === 1" :class="$style.chars">
                 <v-img :src="char_sample1" width="28px"/>
@@ -19,10 +19,14 @@
                     class="rounded-lg"
                     width="100%"
                     :class="$style.thumbnail"
-                    @click="applyStory(list.id)"
             />
         </div>
         <div :class="$style.contents">
+            <h5 :class="$style.title">{{ list.title }}</h5>
+            <p :class="$style.objects">인원<span style="color:#1ab96c">{{ list.info.starred }}</span>명 . 길이 <span
+                    style="color:#1ab96c">{{ list.info.length }}</span>분 . <span
+                    style="color:#1ab96c">{{ list.info.objects[0] }}</span>외 <span
+                    style="color:#1ab96c"> {{ list.info.objects.length }}</span>개 물건</p>
             <div :class="$style.profile_wrapper">
                 <v-btn icon :class="$style.profile" class="pa-0 mr-1 bg-white d-flex justify-center align-center"
                        size="x-small">
@@ -34,14 +38,10 @@
                     <p :class="$style.author">{{ list.author }}</p>
                     <p :class="$style.book">이야기책 <span style="color:#1ab96c">{{ list.book }}</span>권</p>
                 </div>
-
             </div>
 
-            <h5 :class="$style.title">{{ list.title }}</h5>
-            <p :class="$style.objects">인원<span style="color:#1ab96c">{{ list.info.starred }}</span>명 . 길이 <span
-                    style="color:#1ab96c">{{ list.info.length }}</span>분 . <span
-                    style="color:#1ab96c">{{ list.info.objects[0] }}</span>외 <span
-                    style="color:#1ab96c"> {{ list.info.objects.length }}</span>개 물건</p>
+
+
         </div>
     </v-list>
 </template>
@@ -148,7 +148,7 @@ const applyStory = (id) => {
       display: flex;
       flex-direction: row;
       align-items: center;
-      padding-bottom: 10px;
+      padding-top: 10px;
 
       .profile {
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);

@@ -21,7 +21,6 @@ const store = useStore();
 defineProps(["page"])
 const emits = defineEmits(["openLoad"]);
 const bookInit = reactive(computed(() => store.getters.getBookInit))
-
 const openLoad = () => {
     if (bookInit.value.char1_name === '' || bookInit.value.book_story === '') {
         alert('주인공 이름과 내용을 확인해주세요')

@@ -15,10 +15,13 @@
                         <v-tooltip
                                 v-model="showHintText"
                                 :text="hintText"
+                                width="200px"
+                                class="text-center"
                                 location="top"
                         >
                             <template v-slot:activator="{ props }">
                                 <v-btn
+                                        v-if="currentStory === null"
                                         size="x-small"
                                         v-bind="props"
                                         height="28px"
@@ -35,18 +38,32 @@
                             </template>
                             <span class="text-caption text-center">{{ hintText }}</span>
                         </v-tooltip>
-                        <v-text-field
-                                v-model="name"
-                                :class="$style.name"
-                                hide-details
-                                bg-color="transparent"
-                                density="compact"
-                                @change="setName"
-                                placeholder="이름"
-                        ></v-text-field>
+                        <div class="d-flex justify-center">
+                            <v-text-field
+                                    v-model="name"
+                                    :class="$style.char1_name"
+                                    hide-details
+                                    bg-color="transparent"
+                                    density="compact"
+                                    @change="setChar1Name"
+                                    placeholder="이름"
+                            ></v-text-field>
+                            <v-text-field
+                                v-if="currentStory === 1 || isAdded"
+                                    v-model="friendName"
+                                    :class="$style.char2_name"
+                                    hide-details
+                                    bg-color="transparent"
+                                    density="compact"
+                                    @change="setChar2Name"
+                                    placeholder="친구 이름"
+                            ></v-text-field>
+                        </div>
+
                         <v-textarea
                                 rows="2"
                                 no-resize
+                                :readonly="currentStory !== null"
                                 max-rows="2"
                                 hide-details
                                 v-model="story"
@@ -62,7 +79,7 @@
                         </v-textarea>
                     </div>
                 </swiper-slide>
-                <swiper-slide class="book" :class="$style.book">
+                <swiper-slide v-if="currentStory === null" class="book" :class="$style.book">
                     <v-img :src="book_add" width="40px" :class="$style.book_add"/>
                 </swiper-slide>
             </swiper>
@@ -82,6 +99,7 @@ import {useStore} from "vuex";
 
 // refs
 const name = ref("");
+const friendName = ref("");
 const story = ref("");
 const store = useStore();
 const subtitle = ref(`가지고 노는 이야기책<br/>우리<span style='color: yellow;'>AI</span>북스`);
@@ -100,8 +118,10 @@ let i = 0;
 const emits = defineEmits(["updatePage"]);
 const icon_ai = new URL("@/assets/images/icon_ai.png", import.meta.url).href;
 const book_add = new URL("@/assets/images/btn_book_add.png", import.meta.url).href;
+const isAdded = reactive(computed(() => store.getters.getAddFriend.isAdded));
 const currentStory = reactive(computed(() => store.getters.getCurrentStory));
-const setName = () => store.commit('setChar1Name', name.value);
+const setChar1Name = () => store.commit('setChar1Name', name.value);
+const setChar2Name = () => store.commit('setChar2Name', friendName.value);
 const setStory = () => store.commit('setBookStory', story.value);
 
 // methods
@@ -146,11 +166,12 @@ input[type="text"] {
     font-size: 0.875rem;
     padding: 0 8px;
 }
+
 textarea {
     font-size: 0.875rem;
-    margin:0;
+    margin: 0;
     text-indent: 0;
-    border:none;
+    border: none;
     height: 50px;
     resize: none;
     padding: 6px 8px !important;
@@ -209,15 +230,25 @@ textarea {
           z-index: 2;
         }
 
-        .name,
+        .char1_name,
+        .char2_name,
         .story {
           padding: 0;
           margin: 0;
           color: black;
         }
 
-        .name {
+        .char1_name,
+        .char2_name {
           margin-bottom: 12px;
+        }
+
+        .char1_name {
+          margin-right: 4px;
+        }
+
+        .char2_name {
+          margin-left: 4px;
         }
       }
 
