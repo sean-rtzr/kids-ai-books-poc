@@ -1,7 +1,7 @@
 <template>
     <div :class="$style.wrapper">
-        <v-img :src="char_sample1" width="160px" :class="$style.char1"/>
-        <p :class="$style.name1">{{ bookInit.char1_name }}</p>
+        <v-img :src="bookInit.value.char1_src" width="160px" :class="$style.char1"/>
+        <p :class="$style.name1">{{ bookInit.value.char1_name }}</p>
         <p ref="dom_sample1" @click="onSound" :class="$style.text_sample1" v-html="text_sample1"></p>
     </div>
 </template>

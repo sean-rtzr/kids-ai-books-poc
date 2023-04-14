@@ -2,7 +2,7 @@
     <div ref="contents" :class="$style.wrapper">
         <Back text="이전"/>
         <Top/>
-        <Title :title="bookInit.title"/>
+        <Title :title="bookInit.value.title"/>
         <BookInfo/>
         <Contents v-if="isAdded.value || getCurrentStory.value === 1" :class="$style.contents"/>
         <Content v-else :class="$style.contents"/>

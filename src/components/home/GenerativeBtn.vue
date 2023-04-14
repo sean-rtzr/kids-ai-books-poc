@@ -1,33 +1,35 @@
 <template>
-    <v-btn width="160px"
-           variant="flat"
-           rounded
-           height="52px"
-           class="text-green-darken-4"
-           color="yellow"
-           :class="$style.btn"
-           @click="openLoad"
-    >
-        {{ page === 0 ? '첫 이야기 만들기' : '구독 후 만들기' }}
-    </v-btn>
+  <v-btn width="160px"
+         variant="flat"
+         rounded
+         height="52px"
+         class="text-green-darken-4"
+         color="yellow"
+         :class="$style.btn"
+         @click="openLoad(page)"
+  >
+    {{ page === 0 ? '첫 이야기 만들기' : '구독 후 만들기' }}
+  </v-btn>
 </template>
 
 <script setup>
-import {computed, reactive, ref} from "vue";
+import {computed, reactive} from "vue";
 import {useStore} from "vuex";
-import {titleFromAI} from "../../utils/openai.js";
 
 const store = useStore();
 
-defineProps(["page"])
-const emits = defineEmits(["openLoad"]);
+const props = defineProps(["page"])
 const bookInit = reactive(computed(() => store.getters.getBookInit))
-const openLoad = () => {
-    if (bookInit.value.char1_name === '' || bookInit.value.book_story === '') {
-        alert('주인공 이름과 내용을 확인해주세요')
-    } else {
-        store.commit('setLoading', true)
-    }
+const openLoad = (pageNo) => {
+  if (pageNo !== 0) {
+    alert('구독후 이용가능 합니다.')
+    return;
+  }
+  if (bookInit.value.char1_name === '' || bookInit.value.book_story === '') {
+    alert('주인공 이름과 내용을 확인해주세요')
+  } else {
+    store.commit('setLoading', true)
+  }
 }
 
 </script>

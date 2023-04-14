@@ -2,7 +2,7 @@
     <v-card width="280px" height="300px" :class="$style.wrapper" class="bg-white">
         <v-img :src="bookInit.value.char1_src" width="160px"
                :class="currentStory.value !== 1 && !isAdded.value ? $style.char1_only : $style.char1"/>
-        <v-img v-if="currentStory.value === 1 || isAdded.value" :src="bookInit.value.char2_src" width="140px" :class="$style.char2"/>
+        <v-img v-if="currentStory.value === 1 || isAdded.value" :src="bookInit.value.char2_src" width="160px" :class="$style.char2"/>
         <p :class="currentStory.value !== 1 && !isAdded.value ? $style.name1_only : $style.name1">
             {{ bookInit.value.char1_name }}</p>
         <p v-if="currentStory.value === 1 || isAdded.value " :class="$style.name2">{{ bookInit.value.char2_name }}</p>
@@ -44,6 +44,8 @@ const char_sample2 = new URL('@/assets/images/char_sample2.png', import.meta.url
     position: absolute;
     left: -10px;
     top: -48px;
+    width: 100%;
+    max-width: 160px;
     z-index: 1;
   }
 
@@ -58,7 +60,9 @@ const char_sample2 = new URL('@/assets/images/char_sample2.png', import.meta.url
   .char2 {
     position: absolute;
     right: -10px;
-    top: -32px;
+    top: -48px;
+    width: 100%;
+    max-width: 160px;
     z-index: 1;
   }
 

@@ -76,7 +76,7 @@ const char_sample3 = new URL(
     import.meta.url
 ).href;
 const char_sample4 = new URL(
-    "@/assets/images/char_sample2.png",
+    "@/assets/images/char_sample2.gif",
     import.meta.url
 ).href;
 const char_sample1_1 = new URL(
@@ -179,7 +179,7 @@ const deleteFriend = () => {
     top: -60px;
     left: 72px;
     width: 100%;
-    max-width: 138px;
+    max-width: 160px;
     height: 100%;
     object-fit: cover;
   }

@@ -10,7 +10,7 @@ const home = {
             ).href,
             char2_name: "",
             char2_src: new URL(
-                "@/assets/images/char_sample7.png",
+                "@/assets/images/char_sample7.gif",
                 import.meta.url
             ).href,
             objects: [],

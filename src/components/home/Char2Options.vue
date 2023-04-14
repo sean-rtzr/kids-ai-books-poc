@@ -26,7 +26,11 @@ const characters = [
         src: new URL(
             "@/assets/images/char_options_sample4.png",
             import.meta.url
-        ).href
+        ).href,
+      animation: new URL(
+          "@/assets/images/char_sample4.gif",
+          import.meta.url
+      ).href
     },
     {
         id: 2,
@@ -34,7 +38,11 @@ const characters = [
         src: new URL(
             "@/assets/images/char_options_sample5.png",
             import.meta.url
-        ).href
+        ).href,
+      animation: new URL(
+          "@/assets/images/char_sample5.gif",
+          import.meta.url
+      ).href
     },
     {
         id: 3,
@@ -42,7 +50,11 @@ const characters = [
         src: new URL(
             "@/assets/images/char_options_sample6.png",
             import.meta.url
-        ).href
+        ).href,
+      animation: new URL(
+          "@/assets/images/char_sample6.gif",
+          import.meta.url
+      ).href
     },
 ]
 
@@ -52,7 +64,7 @@ const onSelectedItem = (no) => {
     btn.setAttribute("data-selected", false);
   });
   btns[no-1].setAttribute("data-selected", true);
-    store.commit('setChar2Src', characters[no-1].src);
+    store.commit('setChar2Src', characters[no-1].animation);
 };
 </script>
 

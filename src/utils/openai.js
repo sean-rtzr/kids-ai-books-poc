@@ -2,7 +2,7 @@ import axios from "axios";
 
 const client = axios.create({
     headers: {
-        Authorization: "Bearer " + import.meta.env.VITE_OPEN_AI_API || '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',
+        Authorization: "Bearer " + import.meta.env.VITE_OPEN_AI_API,
     },
 });
 export const titleFromAI = async (prompt) => {

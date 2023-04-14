@@ -79,7 +79,7 @@
                         </v-textarea>
                     </div>
                 </swiper-slide>
-                <swiper-slide v-if="currentStory.value === null" class="book" :class="$style.book">
+                <swiper-slide v-if="currentStory.value === null" class="book" :class="$style.book" @click="showAlert">
                     <v-img :src="book_add" width="40px" :class="$style.book_add"/>
                 </swiper-slide>
             </swiper>
@@ -143,6 +143,10 @@ const getHint = () => {
     hintText.value = hintTexts[i];
     i++;
 };
+
+const showAlert = () => {
+  alert('구독 후 이용가능합니다.')
+}
 
 watch(currentStory, (val) => {
     if (val === null) {

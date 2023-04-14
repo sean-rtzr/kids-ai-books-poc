@@ -3,7 +3,7 @@
         <Comment />
         <BookInit text="이전"/>
         <Top/>
-        <Title :title="bookInit.title"/>
+        <Title :title="bookInit.value.title"/>
         <Profile/>
         <Btns/>
         <v-divider class="mx-6 my-2"/>
